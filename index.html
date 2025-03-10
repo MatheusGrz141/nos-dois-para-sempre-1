@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosso Sonho de Amor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        text-align: center;
+        font-family: "Dancing Script", cursive;
+        background-color: #ffdde1;
+        color: #b22222;
+      }
+      h1 {
+        font-size: 3rem;
+        margin-top: 20px;
+      }
+      .slideshow {
+        position: relative;
+        max-width: 400px;
+        margin: 20px auto;
+      }
+      .slideshow img {
+        width: 100%;
+        height: 400px; /* Define uma altura fixa */
+        object-fit: cover; /* Mantém a proporção sem ultrapassar */
+        display: none;
+        border-radius: 10px;
+        transition: opacity 1s ease-in-out;
+      }
+      #contadorConhecidos,
+      #contadorBeijantes,
+      #contadorNamorantes {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .heart {
+        position: fixed; /* Para posicionar os corações */
+        font-size: 2rem;
+        color: red;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .texto {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="titulo">Nós Dois para Sempre 💕</h1>
+      <div class="heart" id="heartContainer"></div>
+      <div class="slideshow">
+        <img src="imagem (1).jpg" class="slide" style="display: block" />
+        <img src="imagem (2).jpg" class="slide" />
+      </div>
+      <p id="contadorConhecidos"></p>
+      <p id="contadorBeijantes"></p>
+      <p id="contadorNamorantes"></p>
+
+      <p class="texto">
+        Desde o momento em que nossos olhares se cruzaram, soube que você era
+        especial. Sua presença ilumina meus dias e enche meu coração de alegria.
+        Cada instante ao seu lado é como um capítulo mágico da nossa própria
+        história de amor, onde os sorrisos, os toques e as risadas se entrelaçam
+        em uma dança perfeita. Você é a razão pela qual acredito nos pequenos
+        milagres da vida. Quando suas mãos se entrelaçam às minhas, sinto que,
+        juntos, podemos enfrentar qualquer desafio. Seu carinho é o abrigo em
+        que me sinto seguro, e seu amor é o combustível que me motiva a ser uma
+        pessoa melhor a cada dia. Prometo estar ao seu lado em cada passo dessa
+        jornada, compartilhar sonhos, criar memórias e celebrar a beleza do que
+        somos juntos. Você é meu sol em dias nublados e a estrela que guia
+        minhas noites. Agradeço por cada momento, por cada riso e por você ser
+        exatamente quem é. Com todo o meu amor,
+      </p>
+    </div>
+    <script>
+      function showSlides() {
+        let slides = document.querySelectorAll(".slide");
+        let index = 0;
+        setInterval(() => {
+          slides.forEach((slide) => (slide.style.display = "none"));
+          slides[index].style.display = "block";
+          index = (index + 1) % slides.length;
+        }, 3000);
+      }
+      showSlides();
+
+      function calcularDiferenca(dataInicial) {
+        let agora = new Date();
+        let inicio = new Date(dataInicial);
+        let anos = agora.getFullYear() - inicio.getFullYear();
+        let meses = agora.getMonth() - inicio.getMonth();
+        let dias = agora.getDate() - inicio.getDate();
+        if (dias < 0) {
+          meses--;
+          let ultimoDiaMesAnterior = new Date(
+            agora.getFullYear(),
+            agora.getMonth(),
+            0
+          ).getDate();
+          dias += ultimoDiaMesAnterior;
+        }
+        if (meses < 0) {
+          anos--;
+          meses += 12;
+        }
+        let diferencaMs = agora - inicio;
+        let segundos = Math.floor(diferencaMs / 1000) % 60;
+        let minutos = Math.floor(diferencaMs / (1000 * 60)) % 60;
+        let horas = Math.floor(diferencaMs / (1000 * 60 * 60)) % 24;
+        return { anos, meses, dias, horas, minutos, segundos };
+      }
+      function atualizarContador(id, dataInicial, mensagem) {
+        function atualizar() {
+          let tempo = calcularDiferenca(dataInicial);
+          document.getElementById(
+            id
+          ).innerText = `${mensagem} ${tempo.anos} anos, ${tempo.meses} meses, ${tempo.dias} dias, ${tempo.horas} horas, ${tempo.minutos} minutos, ${tempo.segundos} segundos`;
+        }
+        setInterval(atualizar, 1000);
+        atualizar();
+      }
+
+      function posicaoAleatoria() {
+        const heartContainer = document.getElementById("heartContainer");
+        const heartCount = 5; // Número de corações
+        heartContainer.innerHTML = ""; // Limpa corações existentes
+
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerText = "❤️";
+          heart.style.left = Math.random() * 100 + "vw"; // posição horizontal
+          heart.style.top = Math.random() * 100 + "vh"; // posição vertical
+          heartContainer.appendChild(heart);
+        }
+      }
+
+      // Chama a função para gerar corações em posições aleatórias
+      posicaoAleatoria();
+
+      atualizarContador(
+        "contadorBeijantes",
+        "2022-07-23T23:21:12",
+        "Nosso primeiro beijo foi há"
+      );
+      atualizarContador(
+        "contadorNamorantes",
+        "2022-08-02T00:12:21",
+        "Somos namorantes há"
+      );
+    </script>
+  </body>
+</html>
